@@ -5,68 +5,836 @@
   <title>André Bonfim – Cybersecurity Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #030816;
+      --card: #020819;
+      --border: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.18);
+      --accent-strong: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --green: #22c55e;
+      --yellow: #facc15;
+      --badge-bg: #0f172a;
+      --badge-border: #1e293b;
+      --shadow-soft: 0 18px 45px rgba(15,23,42,0.75);
+      --radius-xl: 18px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
-      padding: 32px 16px;
-      background: #020617;
-      color: #e5e7eb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0b1120 0, #020617 52%, #000 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Layout */
+    .page {
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
     }
-    main {
+
+    .shell {
       width: 100%;
-      max-width: 900px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
     }
-    h1 { font-size: 1.9rem; margin-bottom: 4px; }
-    h2 { margin-top: 28px; font-size: 1.4rem; }
-    h3 { margin-top: 18px; font-size: 1.1rem; }
-    p { color: #9ca3af; line-height: 1.6; }
-    a { color: #60a5fa; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .tagline { color: #9ca3af; margin-bottom: 18px; }
-    .section { margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: #020819; border: 1px solid #111827; }
-    ul { color: #9ca3af; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(22px);
+      background: linear-gradient(to bottom, rgba(2,6,23,0.96), rgba(2,6,23,0.75), transparent);
+      border-bottom: 1px solid rgba(15,23,42,0.75);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #22c55e, #16a34a 40%, #0f172a 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.4), 0 0 30px rgba(34,197,94,0.35);
+      font-size: 16px;
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .nav-title-main {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-title-sub {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      border-color: rgba(148,163,184,0.5);
+      text-decoration: none;
+    }
+
+    .nav-pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.18), transparent 55%);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.7fr);
+      gap: 28px;
+      margin-top: 26px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-main {
+      padding: 22px 20px 22px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(15,23,42,0.9);
+      background:
+        radial-gradient(circle at 0 0, rgba(56,189,248,0.18), transparent 55%),
+        radial-gradient(circle at 80% 120%, rgba(52,211,153,0.18), transparent 55%),
+        var(--bg-alt);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .hero-pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.55);
+      color: var(--muted);
+      background-color: rgba(15,23,42,0.95);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 3.1vw, 32px);
+      line-height: 1.15;
+      margin: 4px 0 8px;
+      font-weight: 650;
+    }
+
+    .hero-title span.accent {
+      background: linear-gradient(to right, #38bdf8, #22c55e, #facc15);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      max-width: 520px;
+    }
+
+    .hero-highlight {
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-bottom: 14px;
+    }
+
+    .hero-highlight span {
+      color: var(--accent-strong);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #0ea5e9, #22c55e);
+      color: #0b1120;
+      box-shadow: 0 12px 32px rgba(34,197,94,0.4);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      background: rgba(15,23,42,0.92);
+      border-color: rgba(148,163,184,0.6);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-meta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hero-meta-label {
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 10px;
+      color: #6b7280;
+    }
+
+    .hero-meta-value {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-side {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(15,23,42,0.9);
+      background: radial-gradient(circle at 0 0, rgba(99,102,241,0.18), transparent 55%), var(--bg-alt);
+      padding: 16px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.95);
+    }
+
+    .hero-side-headline {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .badge-case {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 0, var(--accent-soft), transparent 55%);
+      border: 1px solid rgba(148,163,184,0.55);
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(34,197,94,0.9);
+    }
+
+    .hero-side-body {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .hero-side-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .hero-side-meta div span {
+      display: block;
+    }
+
+    .hero-side-meta-label {
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 10px;
+      margin-bottom: 1px;
+    }
+
+    .hero-side-meta-value {
+      color: var(--text);
+      font-size: 11px;
+    }
+
+    .hero-side-footer {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .hero-side-footer span {
+      color: var(--accent);
+    }
+
+    /* Sections */
+    .sections {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.5fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 880px) {
+      .sections {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      padding: 16px 16px 16px;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.85);
+    }
+
+    .card h2 {
+      font-size: 15px;
+      margin: 0 0 10px;
+    }
+
+    .pill-label {
+      display: inline-flex;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .grid-skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .skill-chip {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.55);
+      padding: 6px 9px;
+      font-size: 11px;
+      color: #d1d5db;
+      background: rgba(15,23,42,0.96);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .skill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .list-tight {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .list-tight li {
+      margin-bottom: 4px;
+    }
+
+    .list-tight li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    .case-block {
+      margin-top: 8px;
+      padding: 10px 11px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.16), transparent 55%), #020617;
+      border: 1px solid rgba(30,64,175,0.9);
+    }
+
+    .case-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .case-meta {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .case-meta span {
+      color: var(--accent);
+    }
+
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .case-tag {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      padding: 3px 7px;
+      font-size: 10px;
+      color: #d1d5db;
+      background: rgba(15,23,42,0.96);
+    }
+
+    /* Roadmap & Contact */
+    .full-row {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.5fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 880px) {
+      .full-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .roadmap-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .roadmap-list li {
+      margin-bottom: 6px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .roadmap-list li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 11px;
+      top: 1px;
+    }
+
+    .contact-links {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .contact-links p {
+      margin: 0 0 8px;
+    }
+
+    .contact-links a {
+      font-weight: 500;
+    }
+
+    footer {
+      border-top: 1px solid rgba(15,23,42,0.9);
+      padding: 10px 16px 20px;
+      margin-top: 40px;
+      font-size: 11px;
+      color: #6b7280;
+      text-align: center;
+      background: radial-gradient(circle at 50% 0, rgba(56,189,248,0.18), transparent 60%);
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>André Bonfim – Cybersecurity Portfolio</h1>
-    <p class="tagline">Junior Cybersecurity (Training) · Berlin · Cloud, API Security & Hands-on Labs</p>
+  <div class="page">
+    <header>
+      <div class="nav">
+        <div class="nav-left">
+          <div class="nav-mark">AB</div>
+          <div class="nav-title">
+            <span class="nav-title-main">CYBER-PORTFOLIO</span>
+            <span class="nav-title-sub">Cloud · Security · Labs · Governance</span>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#featured">Featured Lab</a>
+          <a href="#roadmap">Roadmap</a>
+          <span class="nav-pill">
+            <span>Open to roles · 2025</span>
+          </span>
+        </div>
+      </div>
+    </header>
 
-    <div class="section">
-      <h2>🌟 Featured Project</h2>
+    <main class="shell">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-main">
+          <div class="hero-pill-row">
+            <span class="hero-pill">Berlin · Cybersicherheit</span>
+            <span class="hero-pill">PT · DE · EN</span>
+            <span class="hero-pill">From Linguistics → Cloud Security</span>
+          </div>
 
-      <h3>Vision Base64 Security Lab — AI Portraits (GCP Vision API)</h3>
-      <p>
-        End-to-end workflow for securely handling AI-generated self-portraits using Base64 encoding,
-        Google Cloud Vision API and OAuth2 (Application Default Credentials), with a strong focus on
-        cloud security and real-world error analysis (403 PERMISSION_DENIED / SERVICE_DISABLED).
-      </p>
-      <p><strong>Skills:</strong> Vision API, Base64, OAuth2 (ADC), Cloud Security, STRIDE Threat Modeling, Bash, JSON, API Troubleshooting</p>
-      <p>
-        <!-- quando você recriar o case no novo repo, ajuste o link abaixo -->
-        <a href="projects/vision-base64-security-lab/index.html">🔗 Open case study</a>
-      </p>
-    </div>
+          <h1 class="hero-title">
+            Cybersecurity portfolio of <span class="accent">André Bonfim</span> — cloud, APIs and hands-on labs.
+          </h1>
 
-    <div class="section">
-      <h2>📚 Focus Areas</h2>
-      <ul>
-        <li>Cloud Security (Google Cloud Platform)</li>
-        <li>API Security & IAM Troubleshooting</li>
-        <li>Log Analysis & Observability</li>
-        <li>Hands-on Labs integrated into public portfolio (GitHub + LinkedIn)</li>
-      </ul>
-    </div>
+          <p class="hero-subtitle">
+            Junior Cybersecurity (Training) based in Berlin, building real labs on Google Cloud, Linux and
+            TryHackMe, with a strong focus on API security, IAM troubleshooting and governance.
+          </p>
 
-    <div class="section">
-      <h2>🌐 Contact</h2>
-      <p>
-        LinkedIn: <a href="https://www.linkedin.com/in/a-bonfim-tech/" target="_blank">linkedin.com/in/a-bonfim-tech</a><br/>
-        GitHub: <a href="https://github.com/a-bonfim-tech" target="_blank">github.com/a-bonfim-tech</a>
-      </p>
-    </div>
-  </main>
+          <p class="hero-highlight">
+            I treat **errors, quotas and restrictions** as part of the learning asset — not something to hide.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#featured">
+              🔍 View featured security lab
+            </a>
+            <a class="btn btn-ghost" href="#contact">
+              ✉️ Contact / LinkedIn
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <div class="hero-meta-block">
+              <span class="hero-meta-label">Current Focus</span>
+              <span class="hero-meta-value">Cloud Security (GCP) · API Security · Logs</span>
+            </div>
+            <div class="hero-meta-block">
+              <span class="hero-meta-label">Background</span>
+              <span class="hero-meta-value">Linguistics & Education → Cybersicherheit</span>
+            </div>
+            <div class="hero-meta-block">
+              <span class="hero-meta-label">Learning Platforms</span>
+              <span class="hero-meta-value">Masterschool · Google Cloud Skills Boost · TryHackMe</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="badge-case">
+            <span class="badge-dot"></span>
+            <span>Featured Case Study · 2025</span>
+          </div>
+          <div class="hero-side-headline">
+            Vision Base64 Security Lab — AI Portraits & Vision API
+          </div>
+          <div class="hero-side-body">
+            Authorial lab built on top of a Google Cloud Skills Boost scenario, focusing on
+            secure handling of AI-generated portraits, Base64 workflows and Vision API with OAuth2 ADC.
+          </div>
+          <div class="hero-side-meta">
+            <div>
+              <span class="hero-side-meta-label">Cloud</span>
+              <span class="hero-side-meta-value">Google Cloud Platform</span>
+            </div>
+            <div>
+              <span class="hero-side-meta-label">Domain</span>
+              <span class="hero-side-meta-value">Cloud Security · API Security</span>
+            </div>
+            <div>
+              <span class="hero-side-meta-label">Focus</span>
+              <span class="hero-side-meta-value">Vision API · IAM · Quotas</span>
+            </div>
+            <div>
+              <span class="hero-side-meta-label">Format</span>
+              <span class="hero-side-meta-value">Hands-on case study</span>
+            </div>
+          </div>
+          <div class="hero-side-footer">
+            Designed as a **recruiter-friendly artifact** that explains not only what works,
+            but how I reason when the cloud says <span>“403 PERMISSION_DENIED”</span>.
+          </div>
+        </aside>
+      </section>
+
+      <!-- ABOUT & SKILLS -->
+      <section class="sections">
+        <article class="card" id="about">
+          <span class="pill-label">About</span>
+          <h2>From Linguistics to Cybersicherheit</h2>
+          <p>
+            I am <strong>André Luiz Vieira Bonfim</strong>, a Brazilian living in Berlin, currently studying
+            <strong>Cybersicherheit</strong> and building a career that combines language, governance and
+            technical security work.
+          </p>
+          <p>
+            Before cybersecurity, my background was in <strong>Linguistics and Education</strong>. That means
+            I am used to explaining complex topics, structuring information and thinking about how people
+            experience technology — not only how systems behave.
+          </p>
+          <p>
+            Today, my focus is on:
+          </p>
+          <ul class="list-tight">
+            <li>Cloud-native security on <strong>Google Cloud Platform</strong>.</li>
+            <li><strong>API Security</strong> and identity: OAuth2, IAM, quotas and ADC.</li>
+            <li><strong>Observability and logs</strong> as first-class citizens of a security workflow.</li>
+            <li>Linking <strong>governance, digital identity and human impact</strong>.</li>
+          </ul>
+        </article>
+
+        <article class="card" id="skills">
+          <span class="pill-label">Skills & Stack</span>
+          <h2>What I’m Building as a Security Engineer</h2>
+          <p>
+            I am not just “doing labs”. I am training myself to think and communicate as a security
+            engineer who understands cloud boundaries, identity and human context.
+          </p>
+          <div class="grid-skills">
+            <div class="skill-chip">
+              <span class="skill-dot"></span>
+              GCP · IAM · APIs · Vision
+            </div>
+            <div class="skill-chip">
+              <span class="skill-dot"></span>
+              OAuth2 ADC · Quotas · 403
+            </div>
+            <div class="skill-chip">
+              <span class="skill-dot"></span>
+              Bash · JSON · Cloud Shell
+            </div>
+            <div class="skill-chip">
+              <span class="skill-dot"></span>
+              Linux (Kali) · TryHackMe
+            </div>
+            <div class="skill-chip">
+              <span class="skill-dot"></span>
+              Documentation (EN · PT-BR)
+            </div>
+            <div class="skill-chip">
+              <span class="skill-dot"></span>
+              Governance & Communication
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- FEATURED CASE -->
+      <section class="full-row" id="featured">
+        <article class="card">
+          <span class="pill-label">Featured Lab</span>
+          <h2>Vision Base64 Security Lab — AI Portraits Case Study</h2>
+          <p>
+            This lab is an authorial security-focused case study based on the Google Cloud Skills Boost
+            lab <strong>“Detect Labels, Faces, and Landmarks in Images with the Cloud Vision API (GSP037)”</strong>,
+            but with a twist: instead of repeating a tutorial, I redesigned it as a security artifact.
+          </p>
+          <div class="case-block">
+            <div class="case-title">Scope & Objectives</div>
+            <div class="case-meta">
+              <span>Goal:</span> Process AI-generated portraits with Vision API while treating
+              them as sensitive data and embracing errors as part of the design.
+            </div>
+            <ul class="list-tight">
+              <li>Use three AI-generated self-portraits as private, local inputs.</li>
+              <li>Convert them into Base64 and build manual JSON requests for LABEL + FACE detection.</li>
+              <li>Authenticate using <strong>Application Default Credentials (ADC)</strong> and OAuth2 tokens.</li>
+              <li>Call <code>vision.googleapis.com</code> and capture real <strong>403 PERMISSION_DENIED</strong> errors.</li>
+              <li>Explain why those errors happen (quota project, service enablement, IAM) and how to fix them.</li>
+            </ul>
+            <div class="case-tags">
+              <span class="case-tag">Vision API</span>
+              <span class="case-tag">Base64 workflow</span>
+              <span class="case-tag">OAuth2 · ADC</span>
+              <span class="case-tag">403 analysis</span>
+              <span class="case-tag">STRIDE</span>
+              <span class="case-tag">Cloud Shell</span>
+            </div>
+          </div>
+          <p style="margin-top:10px;">
+            The value of this lab is not “everything worked perfectly”. It is
+            <strong>how I reasoned when the platform pushed back</strong>.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="pill-label">Security Reasoning</span>
+          <h2>Threat Modeling & Data Handling</h2>
+          <p>
+            I applied the <strong>STRIDE</strong> model to think about how this workflow could fail or be abused.
+          </p>
+          <ul class="list-tight">
+            <li><strong>Spoofing:</strong> only OAuth2 ADC tokens from <code>gcloud</code> are used — no API keys.</li>
+            <li><strong>Tampering:</strong> JSON requests are generated from controlled files and scripts.</li>
+            <li><strong>Repudiation:</strong> error responses are stored under <code>/responses</code> as an audit trail.</li>
+            <li><strong>Information Disclosure:</strong> raw portraits are never committed; only placeholders are stored.</li>
+            <li><strong>Denial of Service:</strong> quota/403 errors are documented and connected to ADC/quotas.</li>
+            <li><strong>Elevation of Privilege:</strong> no long-lived secrets or over-privileged service accounts.</li>
+          </ul>
+          <p style="margin-top:8px;">
+            This mindset — <strong>using errors and constraints as learning signals</strong> — is what I want
+            to bring to a security team.
+          </p>
+        </article>
+      </section>
+
+      <!-- ROADMAP & CONTACT -->
+      <section class="full-row" id="roadmap">
+        <article class="card">
+          <span class="pill-label">Roadmap</span>
+          <h2>How This Portfolio Will Evolve</h2>
+          <p>
+            This is not a static GitHub repo. It is a living map of my transition into cybersecurity.
+          </p>
+          <ul class="roadmap-list">
+            <li>Add more GCP security labs (network security, WAF, logging, IAM scenarios).</li>
+            <li>Document TryHackMe rooms as structured case studies (offensive and defensive views).</li>
+            <li>Integrate governance and compliance topics (identity, data protection, human impact).</li>
+            <li>Refine each case with recruiter-friendly summaries and technical deep dives.</li>
+          </ul>
+        </article>
+
+        <article class="card" id="contact">
+          <span class="pill-label">Contact</span>
+          <h2>Let’s Talk</h2>
+          <div class="contact-links">
+            <p>
+              <strong>LinkedIn</strong><br />
+              <a href="https://www.linkedin.com/in/a-bonfim-tech/" target="_blank">
+                linkedin.com/in/a-bonfim-tech
+              </a>
+            </p>
+            <p>
+              <strong>GitHub</strong><br />
+              <a href="https://github.com/a-bonfim-tech" target="_blank">
+                github.com/a-bonfim-tech
+              </a>
+            </p>
+            <p>
+              I am especially interested in roles and collaborations that involve:
+            </p>
+            <ul class="list-tight">
+              <li>Cloud Security on GCP or similar platforms.</li>
+              <li>API Security, IAM and authentication flows.</li>
+              <li>Security operations where logs and errors matter as much as dashboards.</li>
+              <li>Projects that care about both technology and people.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <footer>
+        Built and maintained by André Bonfim · Cybersecurity (Training) · Berlin · 2025
+      </footer>
+    </main>
+  </div>
 </body>
 </html>
