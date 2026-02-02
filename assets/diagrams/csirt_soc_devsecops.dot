@@ -1,0 +1,27 @@
+digraph CSIRT_SOC_DevSecOps {
+    rankdir=TB;
+    node [shape=box, style=filled, color=lightblue];
+
+    Exec [label="Executive Management\n(Stakeholders / Compliance)", color=yellow];
+    SOCManager [label="SOC Manager\n(Performance, Audit)"];
+    L3Lead [label="SOC Lead L3\n(Advanced Detection, Forensics)"];
+    TechLead [label="Technical Lead\n(Containment, Eradication, Recovery)"];
+    IncidentCoordinator [label="Incident Coordinator\n(Cross-department Communication)", color=green];
+    L2Analyst [label="SOC Analyst L2\n(Deep Investigation)"];
+    SecurityAnalyst [label="CSIRT Security Analyst\n(Alert Triage, Investigation)", color=green];
+    L1Analyst [label="SOC Analyst L1\n(Monitoring, Escalation)"];
+    HR_IT_Legal [label="HR / Legal / IT / PR", color=green];
+
+    Exec -> SOCManager;
+    SOCManager -> L3Lead;
+    SOCManager -> TechLead;
+    SOCManager -> IncidentCoordinator;
+    L3Lead -> L2Analyst -> L1Analyst;
+    TechLead -> SecurityAnalyst;
+    IncidentCoordinator -> HR_IT_Legal;
+
+    CI_CD [label="DevSecOps CI/CD Pipeline\n(Code, Build, Test, Deploy)", shape=ellipse, color=orange];
+    CI_CD -> L1Analyst [label="Automated Alerts"];
+    CI_CD -> SecurityAnalyst [label="Automated Alerts"];
+}
+
