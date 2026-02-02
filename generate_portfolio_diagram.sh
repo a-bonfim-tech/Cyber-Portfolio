@@ -1,3 +1,11 @@
+#!/bin/bash
+# Script profissional para gerar PNG, PDF e README do diagrama CSIRT-SOC-DevSecOps
+
+# Criar pasta se não existir
+mkdir -p assets/diagrams
+
+# Criar arquivo DOT final
+cat << 'EOF' > assets/diagrams/csirt_soc_devsecops_portfolio.dot
 digraph CSIRT_SOC_DevSecOps_Professional {
     rankdir=TB;
     node [shape=box, style=filled, fontname="Helvetica", fontsize=10, width=2.5, height=1.0];
@@ -31,3 +39,20 @@ digraph CSIRT_SOC_DevSecOps_Professional {
         Legend1 [label="Yellow = Executive Management\nBlue = SOC\nGreen = CSIRT\nOrange = DevSecOps", shape=note, style=filled, color=white];
     }
 }
+EOF
+
+# Gerar PNG e PDF
+dot -Tpng assets/diagrams/csirt_soc_devsecops_portfolio.dot -o assets/diagrams/csirt_soc_devsecops_portfolio.png
+dot -Tpdf assets/diagrams/csirt_soc_devsecops_portfolio.dot -o assets/diagrams/csirt_soc_devsecops_portfolio.pdf
+
+# Criar README final
+cat << 'EOF' > assets/diagrams/README_DIAGRAM_PORTFOLIO.md
+# CSIRT + SOC + DevSecOps Diagram - Portfolio Professional Version
+
+This PDF represents the complete hierarchical structure of a CSIRT and SOC integrated with a DevSecOps pipeline. It is optimized for portfolio presentation, with clear hierarchy, vivid colors, arrows, and a graphical legend.
+
+- **Executive Management (Yellow):** Stakeholders / Compliance
+- **SOC (Blue):** Analysts L1/L2, Lead L3, SOC Manager
+- **CSIRT (Green):** Security Analysts, Incident Coordinator, HR/Legal/IT/PR collaboration
+- **DevSecOps (Orange):** CI/CD pipeline,
+
