@@ -1,0 +1,5 @@
+Original commit SHA: 6740f95f8099e55e8d804fbc4dcdd5f07231999e
+Replacement signed commit SHA: 280f33f4cac3f70f319a7baa29d749f263981dea
+Date: Mon Feb  2 03:27:19 CET 2026
+Key ID used: 197D10BA783500B1
+Status GitHub: Unverified (original SHA), Verified local GPG
