@@ -1,0 +1,34 @@
+digraph CSIRT_SOC_DevSecOps_Professional {
+    rankdir=TB;
+    node [shape=box, style=filled, fontname="Helvetica", fontsize=10, width=2.5, height=1.0];
+
+    Exec [label="Executive Management\n(Stakeholders / Compliance)", color="#FFD700", style=filled, fontsize=12];
+    SOCManager [label="SOC Manager\n(Performance, Audit)", color="#87CEFA", style=filled];
+    L3Lead [label="SOC Lead L3\n(Advanced Detection, Forensics)", color="#87CEFA", style=filled];
+    TechLead [label="Technical Lead\n(Containment, Eradication, Recovery)", color="#87CEFA", style=filled];
+    IncidentCoordinator [label="Incident Coordinator\n(Cross-department Communication)", color="#32CD32", style=filled];
+    L2Analyst [label="SOC Analyst L2\n(Deep Investigation)", color="#87CEFA", style=filled];
+    SecurityAnalyst [label="CSIRT Security Analyst\n(Alert Triage, Investigation)", color="#32CD32", style=filled];
+    L1Analyst [label="SOC Analyst L1\n(Monitoring, Escalation)", color="#87CEFA", style=filled];
+    HR_IT_Legal [label="HR / Legal / IT / PR", color="#32CD32", style=filled];
+
+    Exec -> SOCManager [label="Command", fontsize=10, penwidth=2];
+    SOCManager -> L3Lead [label="Technical Control", fontsize=10, penwidth=2];
+    SOCManager -> TechLead [label="Technical Control", fontsize=10, penwidth=2];
+    SOCManager -> IncidentCoordinator [label="Coordination", fontsize=10, penwidth=2];
+    L3Lead -> L2Analyst -> L1Analyst [label="Escalation", fontsize=10, penwidth=2];
+    TechLead -> SecurityAnalyst [label="Incident Triage", fontsize=10, penwidth=2];
+    IncidentCoordinator -> HR_IT_Legal [label="Communication", fontsize=10, penwidth=2];
+
+    CI_CD [label="DevSecOps CI/CD Pipeline\n(Code, Build, Test, Deploy)", shape=ellipse, color="#FF8C00", style=filled, fontsize=10];
+    CI_CD -> L1Analyst [label="Automated Alerts", fontsize=10, penwidth=2];
+    CI_CD -> SecurityAnalyst [label="Automated Alerts", fontsize=10, penwidth=2];
+
+    subgraph cluster_legend {
+        label="Legend";
+        fontsize=12;
+        style=dashed;
+        Legend1 [label="Yellow = Executive Management\nBlue = SOC\nGreen = CSIRT\nOrange = DevSecOps", shape=note, style=filled, color=white];
+    }
+}
+
