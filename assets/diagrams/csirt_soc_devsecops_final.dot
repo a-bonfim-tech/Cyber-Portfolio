@@ -1,0 +1,32 @@
+digraph CSIRT_SOC_DevSecOps {
+    rankdir=TB;
+    node [shape=box, style=filled, fontname="Helvetica"];
+
+    Exec [label="Executive Management\n(Stakeholders / Compliance)", color=yellow, style=filled];
+    SOCManager [label="SOC Manager\n(Performance, Audit)", color=lightblue];
+    L3Lead [label="SOC Lead L3\n(Advanced Detection, Forensics)", color=lightblue];
+    TechLead [label="Technical Lead\n(Containment, Eradication, Recovery)", color=lightblue];
+    IncidentCoordinator [label="Incident Coordinator\n(Cross-department Communication)", color=green];
+    L2Analyst [label="SOC Analyst L2\n(Deep Investigation)", color=lightblue];
+    SecurityAnalyst [label="CSIRT Security Analyst\n(Alert Triage, Investigation)", color=green];
+    L1Analyst [label="SOC Analyst L1\n(Monitoring, Escalation)", color=lightblue];
+    HR_IT_Legal [label="HR / Legal / IT / PR", color=green];
+
+    Exec -> SOCManager [label="Command"];
+    SOCManager -> L3Lead [label="Technical Control"];
+    SOCManager -> TechLead [label="Technical Control"];
+    SOCManager -> IncidentCoordinator [label="Coordination"];
+    L3Lead -> L2Analyst -> L1Analyst [label="Escalation"];
+    TechLead -> SecurityAnalyst [label="Incident Triage"];
+    IncidentCoordinator -> HR_IT_Legal [label="Communication"];
+
+    CI_CD [label="DevSecOps CI/CD Pipeline\n(Code, Build, Test, Deploy)", shape=ellipse, color=orange, style=filled];
+    CI_CD -> L1Analyst [label="Automated Alerts"];
+    CI_CD -> SecurityAnalyst [label="Automated Alerts"];
+
+    subgraph legend {
+        rank=same;
+        Legend1 [label="Legend: Blue = SOC, Green = CSIRT, Yellow = Executive, Orange = DevSecOps", shape=note, style=filled, color=white];
+    }
+}
+
