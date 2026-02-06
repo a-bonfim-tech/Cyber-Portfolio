@@ -1,0 +1,18 @@
+evidence_id: gcp-connecticart-saas-q1-q6
+type: assessment_answers
+system: Google Cloud Platform (GCP)
+domain:
+  - Cloud Storage
+  - IAM
+  - Cloud Operations Suite (Monitoring/Logging)
+  - Compute Engine
+controls:
+  - least_privilege
+  - standard_operating_procedure
+  - observability_validation
+created_by: andre (local)
+created_on_utc: 2026-02-06T14:55:10Z
+integrity:
+  hash_file: ../hashes/SHA256SUMS.txt
+notes:
+  - Binary-graded selections captured as audit-ready evidence.
