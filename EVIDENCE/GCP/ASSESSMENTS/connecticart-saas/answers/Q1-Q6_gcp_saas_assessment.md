@@ -1,36 +1,45 @@
-# ConnectiCart (GCP) — Performance Assessment (Q1–Q6) — Evidence
+# ConnectiCart — GCP SaaS Performance Assessment (Q1–Q6)
 
-## Context
-Role: Systems Computing Engineer / Cloud Architect for SaaS running fully on Google Cloud Platform (GCP).
-Scope: Cloud Storage (GCS), IAM, troubleshooting, SOP maintenance, Observability (Cloud Ops Suite), GCE templates.
+## Role
+Systems Computing Engineer / Cloud Architect  
+Platform: Google Cloud Platform (GCP)
 
-## Answers (Binary-graded selections)
+## Scope
+- Google Cloud Storage
+- IAM (Least Privilege)
+- Cloud Operations Suite
+- SOP Maintenance
+- Google Compute Engine (Templates)
 
-### Q1 — Cloud Storage (routine data management)
-**Selected:** Use the Google Cloud Console UI or the standard CLI tool to upload the file to the specified Cloud Storage bucket.  
-**Rationale:** Standard supported method for object upload to GCS; aligns with routine SOP operations.
+---
 
-### Q2 — IAM Least Privilege
-**Selected:** Add the engineer’s user account as a principal and grant the pre-defined custom role `gce-viewer-role` at the project IAM policy.  
-**Rationale:** Least privilege; view-only access; avoids primitive overly-broad roles.
+## Q1 — Cloud Storage (Routine Data Management)
+**Decision:** Upload via Google Cloud Console UI or standard CLI tool (gsutil).  
+**Control Applied:** SOP-compliant data operation.
 
-### Q3 — Cloud Monitoring alert: high latency
-**Selected:** Quickly validate the alert and understand scope by checking related metrics (CPU, memory, error rates).  
-**Rationale:** First runbook step: confirm signal, correlate metrics, assess blast radius before remediation.
+## Q2 — IAM / Least Privilege
+**Decision:** Assign predefined custom role `gce-viewer-role` to the engineer’s user account.  
+**Control Applied:** Least privilege, no primitive roles.
 
-### Q4 — Weekly maintenance window: security patches
-**Selected:** Validate system health after maintenance by checking key indicators on monitoring dashboards.  
-**Rationale:** Post-change verification is mandatory in SOP to ensure reliability after patching.
+## Q3 — Cloud Monitoring Alert
+**Decision:** Validate alert scope by reviewing correlated metrics (CPU, memory, error rate).  
+**Control Applied:** Runbook-first-step validation.
 
-### Q5 — Recurring issue: photo upload errors
-**Selected:** Google Cloud Logging to search/filter aggregated logs for `user-profile-service` (last 30 minutes).  
-**Rationale:** Logs are the authoritative source for error messages and service events; filtering by time + service is standard.
+## Q4 — Maintenance Window
+**Decision:** Validate post-patch system health via monitoring dashboards.  
+**Control Applied:** Post-change verification.
 
-### Q6 — Provision new backend VM using an existing template
-**Selected:** Create a new instance directly from the existing `batch-processor-template` (as required by SOP).  
-**Rationale:** Prevents config drift; enforces standardization, auditability, and repeatability.
+## Q5 — Error Investigation
+**Decision:** Use Google Cloud Logging to filter service errors (last 30 minutes).  
+**Control Applied:** Log-based incident triage.
 
-## Operational controls included in this evidence
-- Written record of selections + rationale (this document)
-- Cryptographic hash recorded separately
-- Version control history (git commits)
+## Q6 — GCE Provisioning
+**Decision:** Create new VM from existing `batch-processor-template`.  
+**Control Applied:** Template enforcement, configuration consistency.
+
+---
+
+## Evidence Characteristics
+- Binary-graded answers
+- SOP-aligned decisions
+- Audit-ready documentation
