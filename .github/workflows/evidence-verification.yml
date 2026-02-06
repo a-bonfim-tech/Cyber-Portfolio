@@ -24,5 +24,15 @@ jobs:
         run: |
           find EVIDENCE -name "SHA256SUMS.txt" -print -exec shasum -a 256 -c {} \;
 
+      - name: Verify GPG signatures (if present)
+        run: |
+          set -e
+          for sig in $(find EVIDENCE -name "*.asc"); do
+            base="${sig%.asc}"
+            echo "Verifying $sig"
+            gpg --batch --yes --verify "$sig" "$base" || exit 1
+          done
+        continue-on-error: false
+
       - name: Evidence verification completed
-        run: echo "Evidence integrity and structure verified."
+        run: echo "Evidence integrity, structure, and signatures verified."

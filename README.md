@@ -1,3 +1,5 @@
+![Evidence Verified](https://img.shields.io/badge/Evidence-Verified-brightgreen)
+
 # Cyber-Portfolio — Governance & Security Engineering
 
 This repository documents my approach to cybersecurity, governance,
