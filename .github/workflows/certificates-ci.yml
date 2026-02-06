@@ -1,0 +1,65 @@
+name: Certificates Integrity CI
+
+on:
+  push:
+    paths:
+      - "CERTIFICATES/**"
+      - "scripts/**"
+      - ".github/workflows/certificates-ci.yml"
+  pull_request:
+    paths:
+      - "CERTIFICATES/**"
+      - "scripts/**"
+
+jobs:
+  validate-certificates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq gnupg
+
+      - name: Validate certificate files exist
+        run: |
+          for pdf in CERTIFICATES/2026/*/*/certificate.pdf; do
+            [ -f "$pdf" ] || exit 1
+            echo "FOUND: $pdf"
+          done
+
+      - name: Validate METADATA.json contains sha256
+        run: |
+          for meta in CERTIFICATES/2026/*/*/METADATA.json; do
+            jq -e '.sha256 and (.sha256 | length > 0)' "$meta" > /dev/null
+            echo "OK sha256: $meta"
+          done
+
+      - name: Verify SHA256 integrity
+        run: |
+          for pdf in CERTIFICATES/2026/*/*/certificate.pdf; do
+            dir="$(dirname "$pdf")"
+            expected="$(jq -r '.sha256' "$dir/METADATA.json")"
+            actual="$(sha256sum "$pdf" | awk '{print $1}')"
+
+            if [ "$expected" != "$actual" ]; then
+              echo "HASH MISMATCH: $pdf"
+              exit 1
+            fi
+            echo "HASH OK: $pdf"
+          done
+
+      - name: Verify GPG signature (if present)
+        run: |
+          REG="CERTIFICATES/2026/CERTIFICATE_REGISTRY.md"
+          SIG="$REG.asc"
+
+          if [ -f "$SIG" ]; then
+            gpg --verify "$SIG" "$REG"
+            echo "GPG SIGNATURE OK"
+          else
+            echo "No GPG signature found, skipping"
+          fi
