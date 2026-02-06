@@ -7,5 +7,6 @@
   "type": "Course Certificate",
   "format": "PDF",
   "verification": "Google Cloud Skills",
-  "path": "certificate.pdf"
+  "path": "certificate.pdf",
+  "sha256": "a00e53ed6308743c38b00902c0f93309a57f1d51f31edb85f185e5d3d58a5b64"
 }
