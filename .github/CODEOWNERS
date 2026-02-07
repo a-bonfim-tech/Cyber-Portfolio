@@ -1,0 +1,11 @@
+# Global owner
+* @a-bonfim-tech
+
+# Certificates governance
+/CERTIFICATES/2026/ @a-bonfim-tech
+
+# CI workflows
+/.github/workflows/ @a-bonfim-tech
+
+# Scripts affecting integrity
+/scripts/ @a-bonfim-tech
