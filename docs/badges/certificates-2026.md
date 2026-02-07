@@ -20,3 +20,4 @@
 - Signed tag: `v2026-certificates-integrity`
 - CI enforced via GitHub Actions
 
+# trigger pages deploy
