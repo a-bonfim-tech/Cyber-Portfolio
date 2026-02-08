@@ -8,6 +8,13 @@
 <p align="center">
   <img src="assets/banner.png" alt="Cloud Security Banner"/>
 </p>
+<!-- Certification badges -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Coursera-Certified-blue"/>
+  <img src="https://img.shields.io/badge/Google%20Cloud-Certified-4285F4"/>
+  <img src="https://img.shields.io/badge/Year-2026-black"/>
+  <img src="https://img.shields.io/badge/Integrity-SHA256%20%7C%20GPG%20%7C%20CI-success"/>
+</p>
 
 # André Luiz Vieira Bonfim — angehender Cloud Security Architect
 
