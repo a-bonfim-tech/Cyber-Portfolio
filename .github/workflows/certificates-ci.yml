@@ -82,5 +82,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: certificates-manifest-2026
-          path: CERTIFICATES/2026/CERTIFICATES_2026_MANIFEST.json
+          path: certificates/2026/CERTIFICATES_2026_MANIFEST.json
 
