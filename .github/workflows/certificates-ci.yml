@@ -74,8 +74,8 @@ jobs:
         run: |
           set -euo pipefail
           gpg --verify \
-            CERTIFICATES/2026/CERTIFICATE_REGISTRY.md.asc \
-            CERTIFICATES/2026/CERTIFICATE_REGISTRY.md
+            certificates/2026/CERTIFICATE_REGISTRY.md.asc \
+            certificates/2026/CERTIFICATE_REGISTRY.md
 
       - name: Upload certificates manifest (audit artifact)
         uses: actions/upload-artifact@v4
