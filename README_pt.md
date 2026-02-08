@@ -1,4 +1,7 @@
 <!-- Navegação de idioma -->
+<p align="center">
+  <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fa-bonfim-tech.github.io%2FCyber-Portfolio%2Fbadges%2Fcertificates-2026.json" alt="Certificates 2026"/>
+</p>
 
 <p align="right">
   <a href="README.md">[EN]</a> |
