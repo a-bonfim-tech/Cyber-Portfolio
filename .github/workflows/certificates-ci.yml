@@ -10,6 +10,7 @@ on:
     paths:
       - "CERTIFICATES/**"
       - "scripts/**"
+      - ".github/workflows/certificates-ci.yml"
 
 jobs:
   validate-certificates:
@@ -24,42 +25,62 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq gnupg
 
-      - name: Validate certificate files exist
+      - name: Validate expected files exist
         run: |
-          for pdf in CERTIFICATES/2026/*/*/certificate.pdf; do
-            [ -f "$pdf" ] || exit 1
-            echo "FOUND: $pdf"
-          done
+          set -euo pipefail
+
+          # Ensure at least one certificate exists (avoid false-green)
+          count_pdf="$(find CERTIFICATES/2026 -type f -name certificate.pdf | wc -l)"
+          if [ "$count_pdf" -lt 1 ]; then
+            echo "No certificate.pdf found under CERTIFICATES/2026"
+            exit 1
+          fi
+
+          count_meta="$(find CERTIFICATES/2026 -type f -name METADATA.json | wc -l)"
+          if [ "$count_meta" -lt 1 ]; then
+            echo "No METADATA.json found under CERTIFICATES/2026"
+            exit 1
+          fi
+
+          echo "FOUND certificate.pdf: $count_pdf"
+          echo "FOUND METADATA.json: $count_meta"
 
       - name: Validate METADATA.json contains sha256
         run: |
-          for meta in CERTIFICATES/2026/*/*/METADATA.json; do
-            jq -e '.sha256 and (.sha256 | length > 0)' "$meta" > /dev/null
+          set -euo pipefail
+          while IFS= read -r meta; do
+            jq -e '.sha256 and (.sha256 | type=="string") and (.sha256 | length > 0)' "$meta" > /dev/null
             echo "OK sha256: $meta"
-          done
+          done < <(find CERTIFICATES/2026 -type f -name METADATA.json)
 
       - name: Verify SHA256 integrity
         run: |
-          for pdf in CERTIFICATES/2026/*/*/certificate.pdf; do
+          set -euo pipefail
+          while IFS= read -r pdf; do
             dir="$(dirname "$pdf")"
             expected="$(jq -r '.sha256' "$dir/METADATA.json")"
             actual="$(sha256sum "$pdf" | awk '{print $1}')"
 
             if [ "$expected" != "$actual" ]; then
               echo "HASH MISMATCH: $pdf"
+              echo "expected: $expected"
+              echo "actual:   $actual"
               exit 1
             fi
             echo "HASH OK: $pdf"
-          done
+          done < <(find CERTIFICATES/2026 -type f -name certificate.pdf)
 
-      - name: Verify GPG signature (if present)
+      - name: Verify GPG signature (mandatory)
         run: |
-          REG="CERTIFICATES/2026/CERTIFICATE_REGISTRY.md"
-          SIG="$REG.asc"
+          set -euo pipefail
+          gpg --import certificates/keys/cert-registry-publickey.asc
+          gpg --verify \
+            certificates/2026/CERTIFICATE_REGISTRY.md.asc \
+            certificates/2026/CERTIFICATE_REGISTRY.md
 
-          if [ -f "$SIG" ]; then
-            gpg --verify "$SIG" "$REG"
-            echo "GPG SIGNATURE OK"
-          else
-            echo "No GPG signature found, skipping"
-          fi
+      - name: Upload certificates manifest (audit artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: certificates-manifest-2026
+          path: certificates/2026/CERTIFICATES_2026_MANIFEST.json
+

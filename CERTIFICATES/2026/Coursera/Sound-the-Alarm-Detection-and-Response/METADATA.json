@@ -7,5 +7,6 @@
   "type": "Course Certificate",
   "format": "PDF",
   "verification": "Coursera platform",
-  "path": "certificate.pdf"
+  "path": "certificate.pdf",
+  "sha256": "95e560a404ea7a5d70715f6f70f857bf4d7423f3004e04a3233f3df26e1c37f8"
 }
