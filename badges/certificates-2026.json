@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "label": "Certificates 2026",
+  "message": "9 verified",
+  "color": "success",
+  "namedLogo": "googlecloud",
+  "links": {
+    "self": "https://github.com/a-bonfim-tech/Cyber-Portfolio/tree/main/CERTIFICATES/2026",
+    "tag": "https://github.com/a-bonfim-tech/Cyber-Portfolio/releases/tag/v2026-certificates-integrity"
+  }
+}
