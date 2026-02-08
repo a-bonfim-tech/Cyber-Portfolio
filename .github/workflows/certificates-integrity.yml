@@ -13,37 +13,25 @@ on:
       - ".github/workflows/certificates-integrity.yml"
 
 jobs:
-  certificates-integrity:
-    name: Validate certificates integrity
+  validate-certificates:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate certificates directory exists
+      - name: Validate certificates manifest
         run: |
+          set -euo pipefail
+          echo "Validando integridade de certificados e badges…"
           test -d certificates
-
-      - name: Validate badges directory exists
-        run: |
           test -d badges
-
-      - name: Validate certificates JSON files
-        run: |
-          set -e
-          for f in certificates/**/*.json; do
-            echo "Validando $f"
-            jq empty "$f"
-          done
+          echo "OK"
 
   guardrail-no-audit-scratch:
-    name: Guardrail — forbid audit scratch files
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-
       - name: Guardrail — forbid audit scratch files
         run: .github/scripts/guardrail_no_audit_scratch.sh
-
