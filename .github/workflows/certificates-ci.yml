@@ -73,6 +73,7 @@ jobs:
       - name: Verify GPG signature (mandatory)
         run: |
           set -euo pipefail
+          gpg --import certificates/keys/cert-registry-publickey.asc
           gpg --verify \
             certificates/2026/CERTIFICATE_REGISTRY.md.asc \
             certificates/2026/CERTIFICATE_REGISTRY.md
