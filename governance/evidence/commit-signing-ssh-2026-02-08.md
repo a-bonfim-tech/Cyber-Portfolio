@@ -12,7 +12,7 @@ Record that commits are:
 - Author/Committer: a-bonfim.tech@cloud-comunity.de
 
 ## Local verification (workstation)
-`gpg.ssh.allowedSignersFile` is a local Git requirement to verify SSH signatures on the workstation.
+gpg.ssh.allowedSignersFile is a local Git requirement to verify SSH signatures on the workstation.
 Example: ~/.ssh/allowed_signers
 
 ## Evidence commands
