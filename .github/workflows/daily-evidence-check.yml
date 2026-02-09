@@ -1,0 +1,24 @@
+name: Daily Evidence Check
+
+on:
+  push:
+    paths:
+      - "study-evidence/**"
+      - "calendar/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check evidence files existence
+        run: |
+          test -d study-evidence || exit 1
+          find study-evidence -name "*-evidence.md" | wc -l
+
+      - name: Validate calendar checksums
+        run: |
+          if [ -f calendar/ics/CHECKSUMS.sha256 ]; then
+            (cd calendar/ics && sha256sum -c CHECKSUMS.sha256)
+          fi
