@@ -1,0 +1,2 @@
+0102c95262c3f7813cd6f7540cf8824a90e63868d3392c302adaae7c33975a2f  answers/Q1-Q6_gcp_saas_assessment.md
+3fa0d152b6bcedec922f26f3eee28a3b877069d363f7f599ea1d22c9dd6e9a41  metadata/EVIDENCE_META.yaml
