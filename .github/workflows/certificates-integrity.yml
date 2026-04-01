@@ -1,0 +1,7 @@
+
+  guardrail-no-audit-scratch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guardrail — forbid audit scratch files
+        run: .github/scripts/guardrail_no_audit_scratch.sh

@@ -1,0 +1,38 @@
+name: Evidence Verification
+
+on:
+  push:
+    paths:
+      - "EVIDENCE/**"
+  pull_request:
+    paths:
+      - "EVIDENCE/**"
+
+jobs:
+  verify-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify required directories
+        run: |
+          test -d EVIDENCE/GCP || exit 1
+          test -d EVIDENCE/GCP/ASSESSMENTS || exit 1
+
+      - name: Verify SHA-256 hashes
+        run: |
+          find EVIDENCE -name "SHA256SUMS.txt" -print -exec shasum -a 256 -c {} \;
+
+      - name: Verify GPG signatures (if present)
+        run: |
+          set -e
+          for sig in $(find EVIDENCE -name "*.asc"); do
+            base="${sig%.asc}"
+            echo "Verifying $sig"
+            gpg --batch --yes --verify "$sig" "$base" || exit 1
+          done
+        continue-on-error: false
+
+      - name: Evidence verification completed
+        run: echo "Evidence integrity, structure, and signatures verified."

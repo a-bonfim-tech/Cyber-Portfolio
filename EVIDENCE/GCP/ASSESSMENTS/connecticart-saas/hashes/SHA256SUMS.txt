@@ -1,0 +1,2 @@
+342d86a381b6dac63c9fbf1148836ab583fc30f6cb8d0402efd9069bf7011d56  answers/Q1-Q6_gcp_saas_assessment.md
+074c41a2def17a8cfe50602db3660e72ea512e44588d7915b40839b98f7028e3  metadata/EVIDENCE_META.yaml

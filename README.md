@@ -1,3 +1,5 @@
+![Evidence Verified](https://img.shields.io/badge/Evidence-Verified-brightgreen)
+
 # Cyber-Portfolio — Governance & Security Engineering
 
 This repository documents my approach to cybersecurity, governance,
@@ -42,3 +44,20 @@ or operational secrets. All content is sanitized and demonstrative.
 
 ## Status
 Active — evolving as governance and security practices mature.
+
+---
+
+## 🔐 Google Cloud Platform — Evidências
+
+Este repositório contém **evidências auditáveis** de operações e decisões técnicas em GCP,
+alinhadas a DevSecOps, SOPs e observabilidade.
+
+### Evidências disponíveis
+- **ConnectiCart SaaS (Q1–Q6)**  
+  Escopo: Cloud Storage, IAM (Least Privilege), Cloud Operations Suite, GCE Templates  
+  📁 `EVIDENCE/GCP/ASSESSMENTS/connecticart-saas`
+
+### Documentação de apoio
+- 📘 Evidências GCP (README): `EVIDENCE/GCP/README.md`
+- 🎓 Mapeamento Coursera / Skills Boost: `EVIDENCE/GCP/MAPPINGS/gcp_learning_alignment.md`
+- ✅ Checklist Evidence-Ready: `EVIDENCE/CHECKLISTS/EVIDENCE_READY_CHECKLIST.md`

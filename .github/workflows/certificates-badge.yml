@@ -1,0 +1,30 @@
+name: Certificates Badge (2026)
+
+on:
+  push:
+    branches: [ "evidence/gcp-connecticart-saas-q1-q6" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-badge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate badge JSON
+        run: |
+          bash scripts/generate_certificates_badge.sh
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          destination_dir: badges
+
